@@ -25,7 +25,7 @@
 		</StackPane>
 		<Button fx:id="nextButton" mnemonicParsing="false" onAction="#onNextAction" styleClass="next-button">
 			<graphic>
-				<SVGPath fx:id="svgPath_nextButton" content="M0,6.36 11,0 11,12.72z" />
+				<SVGPath fx:id="svgPath_nextButton" content="" />
 			</graphic>
 		</Button>
 	</children>

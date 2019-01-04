@@ -120,7 +120,7 @@ public class LoginController implements Initializable {
 					svgPath_nextButton.setContent("M0,7 h2 a5.5,7 0 0,1 11,0 h2 v8 h-15 z M5,7 a2.5,3.5 0 0,1 5,0 h-5");
 					showText("Lozinka");
 				} else {
-					svgPath_nextButton.setContent("M0,15 ");
+					svgPath_nextButton.setContent("M0,13 C0,1 11,1 11,13 z M5,3 a3,3 0 1,1 1,0 M3,9 v4 M8,9 v4");
 					showText("Ime");
 				}
 			} else {
