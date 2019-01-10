@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.shape.SVGPath?>
 
-<HBox stylesheets="@Login.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.goranrsbg.app.controllers.LoginController">
+<HBox stylesheets="@Login.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.goranrsbg.app.ui.login.LoginController">
 	<children>
 		<StackPane fx:id="stackPane">
 			<children>

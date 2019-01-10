@@ -1,4 +1,4 @@
-package com.goranrsbg.app.controllers;
+package com.goranrsbg.app.ui.login;
 
 import java.net.URL;
 import java.util.ResourceBundle;
