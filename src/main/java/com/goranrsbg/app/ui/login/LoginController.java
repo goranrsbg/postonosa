@@ -123,7 +123,7 @@ public class LoginController implements Initializable {
 			Stage stage = (Stage)scene.getWindow();
 			stage.setResizable(true);
 			Platform.runLater(()-> {
-				stage.setFullScreen(true);
+				stage.setMaximized(true);
 			});
 		} catch (IOException e) {
 			log(e.getMessage());
