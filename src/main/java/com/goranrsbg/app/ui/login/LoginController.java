@@ -1,24 +1,31 @@
 package com.goranrsbg.app.ui.login;
 
+import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ResourceBundle;
 
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import javax.persistence.EntityManager;
+
+import com.goranrsbg.app.EmfUtil;
+import com.goranrsbg.app.model.User;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.SVGPath;
+import javafx.stage.Stage;
 
 public class LoginController implements Initializable {
 
@@ -44,7 +51,7 @@ public class LoginController implements Initializable {
     private SVGPath svgPath_nextButton;
 
     private MessageDigest digest;
-    private EntityManagerFactory emf = Persistence.createEntityManagerFactory( "CRM" );
+    private User user;
     
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -91,37 +98,51 @@ public class LoginController implements Initializable {
 	void onNextAction(ActionEvent event) {
 		if (isPassword()) {
 			if (validateUserPassword(passwordField.getText())) {
-				System.out.println("GO APP");
+				launchApp();
 			} else {
+				passwordField.setText("");
 				swap();
 			}
 		} else {
 			if (validateUserName(userNameField.getText())) {
-				System.out.println("GO PASS");
+				log(this.user.toString());
 				swap();
 			}
 		}
 		event.consume();
 	}
+	/**
+	 * If user name and password are valid 
+	 * launch applications main window.
+	 */
+	private void launchApp() {
+		try {
+			Parent root = (Parent)FXMLLoader.load(getClass().getResource("../main/Main.fxml"));
+			Scene scene = stackPane.getScene();
+			scene.setRoot(root);
+			Stage stage = (Stage)scene.getWindow();
+			stage.setResizable(true);
+			Platform.runLater(()-> {
+				stage.setFullScreen(true);
+			});
+		} catch (IOException e) {
+			log(e.getMessage());
+		}
+	}
 
 	private boolean validateUserName(String name) {
-		// TODO Auto-generated method stub
 		String sha256 = getSHA256(userNameField.getText());
-		log(sha256 + " " + sha256.length());
-		if (Math.random() > 0.5d) {
-			return true;
-		}
-		return false;
+		EntityManager em = EmfUtil.getEntityManager();
+		em.getTransaction().begin();
+		this.user = em.find(User.class, sha256);
+		em.getTransaction().commit();
+		em.close();
+		return this.user != null;
 	}
 
 	private boolean validateUserPassword(String password) {
-		// TODO Auto-generated method stub
 		String sha256 = getSHA256(passwordField.getText());
-		log(sha256 + " " + sha256.length());
-		if (Math.random() > 0.5d) {
-			return true;
-		}
-		return false;
+		return this.user.getPword().equals(sha256);
 	}
 
 	private void swap() {

@@ -8,8 +8,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class Main extends Application {
+public class Postonosa extends Application {
 	
+	@Override
+	public void init() throws Exception {
+		EmfUtil.connect();
+	}
+
 	@Override
 	public void start(final Stage stage) {
 		try {
@@ -27,6 +32,7 @@ public class Main extends Application {
 	
 	@Override
 	public void stop() throws Exception {
+		EmfUtil.close();
 		System.out.println("Poštonoša ugašen.");
 	}
 

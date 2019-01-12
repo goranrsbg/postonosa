@@ -1,18 +1,24 @@
 <persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
-             http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
-	version="2.1">
-
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.2"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+	<!-- Define persistence unit -->
 	<persistence-unit name="CRM">
-		<description>
-            Persistence unit for Hibernate User Guide
-        </description>
+		<description>Hibernates connection configuration.</description>
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-		<class>org.hibernate.documentation.userguide.Document</class>
+		<class>com.goranrsbg.app.model.User</class>
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+		<shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
 		<properties>
-			<property name="hibernate.ejb.cfgfile"
-				value="/hibernate.cfg.xml" />
+			<!-- database connection -->
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
+			<property name="javax.persistence.jdbc.url"	value="jdbc:mysql://localhost:3306/postonosa" />
+			<property name="javax.persistence.jdbc.user" value="po" />
+			<property name="javax.persistence.jdbc.password" value="asdfasdf" />
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="true" />
+      		<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
+			<property name="javax.persistence.lock.timeout" value="101" />
+			<property name="javax.persistence.query.timeout" value="101" />
 		</properties>
 	</persistence-unit>
 </persistence>
