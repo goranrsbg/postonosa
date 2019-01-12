@@ -1,7 +1,13 @@
 package com.goranrsbg.app.ui.login;
 
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ResourceBundle;
+
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -37,8 +43,16 @@ public class LoginController implements Initializable {
     @FXML
     private SVGPath svgPath_nextButton;
 
+    private MessageDigest digest;
+    private EntityManagerFactory emf = Persistence.createEntityManagerFactory( "CRM" );
+    
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		try {
+			digest = MessageDigest.getInstance("SHA-256");
+		} catch (NoSuchAlgorithmException e) {
+			System.err.println(e.toString());
+		}
 		userNameField.textProperty().addListener((observable, oldValue, newValue) -> {
 			if (newValue.isEmpty()) {
 				showText("Ime");
@@ -62,7 +76,6 @@ public class LoginController implements Initializable {
 		getFocus();
 		event.consume();
 	}
-
 
 	@FXML
 	void onPasswordAction(ActionEvent event) {
@@ -93,6 +106,8 @@ public class LoginController implements Initializable {
 
 	private boolean validateUserName(String name) {
 		// TODO Auto-generated method stub
+		String sha256 = getSHA256(userNameField.getText());
+		log(sha256 + " " + sha256.length());
 		if (Math.random() > 0.5d) {
 			return true;
 		}
@@ -101,6 +116,8 @@ public class LoginController implements Initializable {
 
 	private boolean validateUserPassword(String password) {
 		// TODO Auto-generated method stub
+		String sha256 = getSHA256(passwordField.getText());
+		log(sha256 + " " + sha256.length());
 		if (Math.random() > 0.5d) {
 			return true;
 		}
@@ -138,9 +155,22 @@ public class LoginController implements Initializable {
 			promptLabel.setText("");
 		}
 	}
+	
+	private String getSHA256(String text) {
+		byte[] dig = digest.digest(text.getBytes(StandardCharsets.UTF_8));
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < dig.length; i++) {
+			sb.append(String.format("%02x", dig[i]));
+		}
+		return sb.toString();
+	}
 
 	private boolean isPassword() {
 		return stackPane.getChildren().get(1) instanceof PasswordField;
 	}
-
+	
+	private void log(String message) {
+		System.out.println(message);
+	}
+	
 }
