@@ -4,6 +4,8 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.StackPane?>
 
@@ -18,7 +20,7 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Edit">
             <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
+              <MenuItem mnemonicParsing="false" onAction="#openMap" text="Open map" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
@@ -30,9 +32,15 @@
       </MenuBar>
    </top>
    <bottom>
-      <Label fx:id="informationLabel" text="Label" BorderPane.alignment="CENTER" />
    </bottom>
    <center>
-      <StackPane fx:id="stackPane" BorderPane.alignment="CENTER" />
+      <StackPane fx:id="stackPane" BorderPane.alignment="CENTER">
+         <children>
+            <ScrollPane>
+               <content>
+                  <ImageView fx:id="imageView" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
+               </content>
+            </ScrollPane>
+         </children></StackPane>
    </center>
 </BorderPane>
