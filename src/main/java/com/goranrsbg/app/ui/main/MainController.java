@@ -28,9 +28,13 @@ public class MainController implements Initializable {
 	private Slider zoomSlider;
 
 	private Window window;
+	private FileChooser fileChooser;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		fileChooser = new FileChooser();
+		fileChooser.setTitle("Izaberi Mapu");
+		fileChooser.getExtensionFilters().add(new ExtensionFilter("Mape", "*_map.*"));
 		Platform.runLater(() -> {
 			window = stackPane.getScene().getWindow();
 		});
@@ -38,17 +42,18 @@ public class MainController implements Initializable {
 
 	@FXML
 	void openMap(ActionEvent event) {
-		FileChooser fileChooser = new FileChooser();
-		fileChooser.setTitle("Izaberi Mapu");
-		fileChooser.getExtensionFilters().add(new ExtensionFilter("Images", "*_map.*"));
 		File file = fileChooser.showOpenDialog(window);
 		if (file != null) {
-			Image theMap = new Image(file.toURI().toString());
-			imageView.setImage(theMap);
-			imageView.fitWidthProperty().bind(theMap.widthProperty());
-			imageView.scaleXProperty().bind(zoomSlider.valueProperty());
-			imageView.scaleYProperty().bind(zoomSlider.valueProperty());
+			setTheMap(file.toURI().toString());
 		}
+	}
+	
+	private void setTheMap(String url) {
+		Image theMap = new Image(url);
+		imageView.setImage(theMap);
+		imageView.fitWidthProperty().bind(theMap.widthProperty());
+		imageView.scaleXProperty().bind(zoomSlider.valueProperty());
+		imageView.scaleYProperty().bind(zoomSlider.valueProperty());
 	}
 
 }

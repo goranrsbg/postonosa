@@ -10,42 +10,43 @@
 <?import javafx.scene.layout.StackPane?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="800.0" stylesheets="@Main.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.goranrsbg.app.ui.main.MainController">
-   <top>
-      <MenuBar BorderPane.alignment="CENTER">
-        <menus>
-          <Menu mnemonicParsing="false" text="File">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
-            <items>
-              <MenuItem mnemonicParsing="false" onAction="#openMap" text="Open map" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" text="About" />
-            </items>
-          </Menu>
-            <Menu mnemonicParsing="false">
-               <graphic>
-                  <Slider fx:id="zoomSlider" blockIncrement="0.1" majorTickUnit="0.1" max="2.0" minorTickCount="0" prefHeight="38.0" prefWidth="617.0" showTickLabels="true" showTickMarks="true" value="1.0" />
-               </graphic>
-            </Menu>
-        </menus>
-      </MenuBar>
-   </top>
-   <bottom>
-   </bottom>
-   <center>
-      <StackPane fx:id="stackPane" BorderPane.alignment="CENTER">
-         <children>
-            <ScrollPane pannable="true">
-               <content>
-                  <ImageView fx:id="imageView" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
-               </content>
-            </ScrollPane>
-         </children></StackPane>
-   </center>
+	<top>
+		<MenuBar BorderPane.alignment="CENTER">
+			<menus>
+				<Menu mnemonicParsing="false" text="File">
+					<items>
+						<MenuItem mnemonicParsing="false" text="Close" />
+					</items>
+				</Menu>
+				<Menu mnemonicParsing="false" text="Edit">
+					<items>
+						<MenuItem mnemonicParsing="false" onAction="#openMap" text="Open map" />
+					</items>
+				</Menu>
+				<Menu mnemonicParsing="false" text="Help">
+					<items>
+						<MenuItem mnemonicParsing="false" text="About" />
+					</items>
+				</Menu>
+				<Menu mnemonicParsing="false">
+					<graphic>
+						<Slider fx:id="zoomSlider" blockIncrement="0.1" majorTickUnit="0.1" max="1.0" minorTickCount="0" prefHeight="38.0" prefWidth="270.0" showTickLabels="true" showTickMarks="true" value="1.0" />
+					</graphic>
+				</Menu>
+			</menus>
+		</MenuBar>
+	</top>
+	<bottom>
+	</bottom>
+	<center>
+		<StackPane fx:id="stackPane" BorderPane.alignment="CENTER">
+			<children>
+				<ScrollPane pannable="true">
+					<content>
+						<ImageView fx:id="imageView" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
+					</content>
+				</ScrollPane>
+			</children>
+		</StackPane>
+	</center>
 </BorderPane>
