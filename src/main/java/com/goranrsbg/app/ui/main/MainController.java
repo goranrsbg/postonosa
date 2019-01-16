@@ -8,6 +8,7 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
@@ -23,6 +24,9 @@ public class MainController implements Initializable {
 	@FXML
 	private ImageView imageView;
 
+	@FXML
+	private Slider zoomSlider;
+
 	private Window window;
 
 	@Override
@@ -34,16 +38,24 @@ public class MainController implements Initializable {
 
 	@FXML
 	void openMap(ActionEvent event) {
-		System.out.println("Time to open map.");
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Izaberi Mapu");
-		fileChooser.getExtensionFilters().add(new ExtensionFilter("Images", "*_map.jpg"));
+		fileChooser.getExtensionFilters().add(new ExtensionFilter("Images", "*_map.*"));
 		File file = fileChooser.showOpenDialog(window);
-		if(file != null) {
+		if (file != null) {
 			Image theMap = new Image(file.toURI().toString());
 			imageView.setImage(theMap);
 			imageView.fitWidthProperty().bind(theMap.widthProperty());
+			imageView.scaleXProperty().bind(zoomSlider.valueProperty());
+			imageView.scaleYProperty().bind(zoomSlider.valueProperty());
 		}
 	}
 
 }
+
+
+
+
+
+
+
