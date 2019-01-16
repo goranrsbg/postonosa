@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Slider?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.StackPane?>
@@ -28,6 +28,11 @@
               <MenuItem mnemonicParsing="false" text="About" />
             </items>
           </Menu>
+            <Menu mnemonicParsing="false">
+               <graphic>
+                  <Slider fx:id="zoomSlider" blockIncrement="0.1" majorTickUnit="0.1" max="2.0" minorTickCount="0" prefHeight="38.0" prefWidth="617.0" showTickLabels="true" showTickMarks="true" value="1.0" />
+               </graphic>
+            </Menu>
         </menus>
       </MenuBar>
    </top>
@@ -36,7 +41,7 @@
    <center>
       <StackPane fx:id="stackPane" BorderPane.alignment="CENTER">
          <children>
-            <ScrollPane>
+            <ScrollPane pannable="true">
                <content>
                   <ImageView fx:id="imageView" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
                </content>
