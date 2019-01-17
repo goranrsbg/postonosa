@@ -1,40 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="800.0" stylesheets="@Main.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.goranrsbg.app.ui.main.MainController">
 	<top>
-		<MenuBar BorderPane.alignment="CENTER">
-			<menus>
-				<Menu mnemonicParsing="false" text="File">
-					<items>
-						<MenuItem mnemonicParsing="false" text="Close" />
-					</items>
-				</Menu>
-				<Menu mnemonicParsing="false" text="Edit">
-					<items>
-						<MenuItem mnemonicParsing="false" onAction="#openMap" text="Open map" />
-					</items>
-				</Menu>
-				<Menu mnemonicParsing="false" text="Help">
-					<items>
-						<MenuItem mnemonicParsing="false" text="About" />
-					</items>
-				</Menu>
-				<Menu mnemonicParsing="false">
-					<graphic>
-						<Slider fx:id="zoomSlider" blockIncrement="0.1" majorTickUnit="0.1" max="1.0" minorTickCount="0" prefHeight="38.0" prefWidth="270.0" showTickLabels="true" showTickMarks="true" value="1.0" />
-					</graphic>
-				</Menu>
-			</menus>
-		</MenuBar>
+      <HBox BorderPane.alignment="CENTER">
+         <children>
+      		<MenuBar>
+      			<menus>
+      				<Menu mnemonicParsing="false" text="File">
+      					<items>
+      						<MenuItem mnemonicParsing="false" text="Close" />
+      					</items>
+      				</Menu>
+      				<Menu mnemonicParsing="false" text="Edit">
+      					<items>
+      						<MenuItem mnemonicParsing="false" onAction="#openMap" text="Open map" />
+                        <MenuItem mnemonicParsing="false" text="zoom" />
+      					</items>
+      				</Menu>
+      				<Menu mnemonicParsing="false" text="Help">
+      					<items>
+      						<MenuItem mnemonicParsing="false" onAction="#readViewPort" text="Set View Port" />
+      					</items>
+      				</Menu>
+      				<Menu mnemonicParsing="false">
+      					<graphic>
+      						<Slider fx:id="zoomSlider" blockIncrement="0.1" majorTickUnit="0.1" max="1.0" minorTickCount="0" prefHeight="38.0" prefWidth="270.0" showTickLabels="true" showTickMarks="true" value="1.0" />
+      					</graphic>
+      				</Menu>
+      			</menus>
+      		</MenuBar>
+            <TextField prefWidth="51.0" promptText="x" fx:id="x">
+               <HBox.margin>
+                  <Insets left="11.0" top="11.0" />
+               </HBox.margin>
+            </TextField>
+            <TextField fx:id="y" prefWidth="51.0" promptText="y">
+               <HBox.margin>
+                  <Insets left="11.0" top="11.0" />
+               </HBox.margin>
+            </TextField>
+            <TextField fx:id="w" layoutX="455.0" layoutY="10.0" prefWidth="51.0" promptText="w">
+               <HBox.margin>
+                  <Insets left="11.0" top="11.0" />
+               </HBox.margin>
+            </TextField>
+            <TextField fx:id="h" layoutX="626.0" layoutY="10.0" prefWidth="51.0" promptText="h">
+               <HBox.margin>
+                  <Insets left="11.0" top="11.0" />
+               </HBox.margin>
+            </TextField>
+         </children>
+      </HBox>
 	</top>
 	<bottom>
 	</bottom>
@@ -43,7 +71,7 @@
 			<children>
 				<ScrollPane pannable="true">
 					<content>
-						<ImageView fx:id="imageView" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
+						<ImageView fx:id="imageView" cache="true" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
 					</content>
 				</ScrollPane>
 			</children>
