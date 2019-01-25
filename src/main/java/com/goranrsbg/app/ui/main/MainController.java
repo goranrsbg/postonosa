@@ -31,7 +31,7 @@ public class MainController implements Initializable {
 
 	private Window window;
 	private FileChooser fileChooser;
-	private final double MAX_ZOOM = 3.0 / 100;
+	private final double MAX_ZOOM = 0.03;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -43,35 +43,6 @@ public class MainController implements Initializable {
 			window = stackPane.getScene().getWindow();
 		});
 	}
-
-//	private TextFormatter<Double> buildFormatter() {
-//		StringConverter<Double> formatter = new StringConverter<Double>() {
-//			@Override
-//			public String toString(Double object) {
-//				System.err.println("toString : " + object);
-//				return object.toString();
-//			}
-//
-//			@Override
-//			public Double fromString(String string) {
-//				System.err.println("fromString : " + string);
-//				Double value = Double.parseDouble(string);
-//				if (value < 0d)
-//					value = 0d;
-//				return value;
-//			}
-//		};
-//		UnaryOperator<Change> filter = new UnaryOperator<Change>() {
-//			@Override
-//			public Change apply(Change change) {
-//				System.err.println(change);
-//				String controlNewText = change.getControlNewText();
-//				System.err.println(controlNewText);
-//				return change;
-//			}
-//		};
-//		return new TextFormatter<Double>(formatter, 0d, filter);
-//	}
 
 	@FXML
 	void openMap(ActionEvent event) {
@@ -94,18 +65,14 @@ public class MainController implements Initializable {
 
 	@FXML
 	void onScroll(ScrollEvent event) {
-		if (event.isControlDown() && imageView.getImage() != null) {
-			double deltaX = event.getDeltaX();
-			double deltaY = event.getDeltaY();
-			Image image = imageView.getImage();
+		Image image = imageView.getImage();
+		double deltaY = event.getDeltaY();
+		if (event.isControlDown() && image != null && deltaY != 0d) {
 			double zoomValue = getZoomLabelValue();
-			System.err.println("Scroll: " + deltaX + ", " + deltaY);
 			if (deltaY > 0d) {
-				zoomValue += MAX_ZOOM;
-			} else if(deltaY < 0){
 				zoomValue -= MAX_ZOOM;
-			} else {
-				return;
+			} else { // deltaY < 0, zoom out
+				zoomValue += MAX_ZOOM;
 			}
 			imageView.setViewport(new Rectangle2D(0d, 0d, image.getWidth() * zoomValue, image.getHeight() * zoomValue));
 			setZoomLabelValue(zoomValue * 100d);
@@ -118,7 +85,7 @@ public class MainController implements Initializable {
 	}
 	
 	private void setZoomLabelValue(double value) {
-		zoomLabel.setText(((long)value) + "%");
+		zoomLabel.setText(Math.round(value) + "%");
 	}
 
 	private void setTheMap(String url) {
